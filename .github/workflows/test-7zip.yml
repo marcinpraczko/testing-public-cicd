@@ -1,0 +1,44 @@
+name: Compress and decompress PDF files
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  compress:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install 7zip
+      run: sudo apt-get update && sudo apt-get install -y p7zip-full
+
+    - name: Compress PDF files with 7zip
+      run: |
+        7z a -p{{ password }} -mhe=on archive.zip README*
+
+    - name: Upload compressed archive
+      uses: actions/upload-artifact@v2
+      with:
+        name: compressed-files
+        path: archive.zip
+
+  decompress:
+    runs-on: windows-latest
+    needs: compress
+    steps:
+    - name: Download compressed archive
+      uses: actions/download-artifact@v2
+      with:
+        name: compressed-files
+
+    - name: Install 7zip
+      run: choco install -y 7zip
+
+    - name: Decompress archive with 7zip
+      run: |
+        7z x -p{{ password }} archive.zip
+
+    - name: Display extracted files
+      run: dir

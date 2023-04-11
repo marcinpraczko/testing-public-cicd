@@ -1,4 +1,4 @@
-name: Compress and decompress PDF files
+name: Test Compress and decompress with 7zip
 
 on:
   push:

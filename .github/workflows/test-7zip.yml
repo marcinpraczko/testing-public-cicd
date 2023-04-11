@@ -16,7 +16,7 @@ jobs:
 
     - name: Compress PDF files with 7zip
       run: |
-        7z a -ptest1234 -mhe=on archive.zip README*
+        7z a -ptest1234 archive.zip README*
 
     - name: Upload compressed archive
       uses: actions/upload-artifact@v2

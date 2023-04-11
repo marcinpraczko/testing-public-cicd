@@ -14,7 +14,9 @@ jobs:
       
       - name: Generate Text File
         run: echo "This is a test file." > test_file.txt
-      
+
+      # NOT WORKING: Issue on GH
+      # https://github.com/ad-m/github-push-action/issues/81      
       - name: Push File to Another Repository
         uses: ad-m/github-push-action@v0.6.0
         with:
